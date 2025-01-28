@@ -1,0 +1,21 @@
+<div className={'mdx-layout'}>
+  <section>
+
+    # Authentication
+
+    To access our APIs, you need an API key, which is sent to you via email after registration.
+    The API key must be included in all requests by setting it in the x-api-key header.
+
+    #### Example usage
+
+    Below is a general example of how to include your API key in a request:
+
+      ```bash
+    curl --location 'https://api.safty.io/dk/data/household/v1/households/2d4a262b-6cb8-4ffa-b43a-da1e7887ab5e' \
+    --header 'x-api-key: {{API_KEY}}'
+      ```
+    Replace `{{API_KEY}}` with the API key you received, and ensure it is included
+    in the header for all API requests.
+
+  </section>
+</div>

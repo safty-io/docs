@@ -1,0 +1,57 @@
+ <div className={'mdx-layout'}>
+  <section>
+
+    # Limitations
+
+    Our API system is designed with specific limitations to ensure stable performance and usage.
+    These limitations are divided into two categories: IP Limitations and API Limitations.
+
+    #### IP limitations
+
+    For requests originating from different regions, rate limits are implemented based on the
+    requesting IP address:
+
+    ###### Primary regions
+
+    IPs from primary geographical regions can make up to 10,000 requests per 5 minutes.
+
+    ###### Outside primary regions
+
+    IPs from outside these regions are limited to 500 requests per 5 minutes or may be
+    completely blocked, depending on the region.
+
+    If the request limit is exceeded, an HTTP 429: Too Many Requests error is returned.
+
+    <br/>
+
+    #### API limitations
+    Each API has distinct limitations, governing both the rate of calls and the number of
+    concurrent active calls. Below is an overview:
+
+    ###### General Data APls (DK, NO, SE)
+    * Rate Limit: 1.000 calls per second
+    * Concurrency: 100 active calls
+
+    ###### Bulk Feature Store
+    * Rate Limit: 10 calls per second
+    * Concurrency: 1 active call
+
+    ###### Tinglysning API
+    * Rate Limit: 10 calls per second
+    * Concurrency: 1 active call
+
+    ###### Recommendation API
+    * Rate Limit: 10 calls per second
+    * Concurrency: 10 active calls
+
+    Each API is managed individually, allowing the full utilization of concurrency limits across
+    multiple APls. For example it is possible to maintain 100 active calls for the DK Data API
+    and another 100 active calls for the NO Data API at the same time.
+
+    This independent handling ensures flexibility and scalability when using different
+    endpoints concurrently.
+
+    If you have questions or require adjustments to these limits, please reach out to us at Predicti.
+
+  </section>
+</div>

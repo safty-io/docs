@@ -1,0 +1,37 @@
+import { ClickableCard } from '@site/src/components';
+
+<div className={'mdx-layout'}>
+
+  <section>
+
+    #### Household
+
+    The "Household" entity represents an address where multiple adults may live, such as families, couples, or individuals over 18 years old.
+    It includes data about properties, companies, vehicles, and life events for all residents, offering a combined view for analysis and decision-making.
+
+    <ClickableCard
+      title={'Household API'}
+      content={'See our technical documentation, to start using our API endpoints. '}
+      buttonLink={'/api/denmark/data/dk-get-attributes-by-address-household-controller'}
+    />
+
+  </section>
+
+---
+
+  <section>
+
+    #### Property
+
+    The "Property" entity, identified by a unique BFE-number, contains information about a property’s characteristics, ownership, value, and transaction history.
+    This entity helps users explore property-related data and its connections to households or households.
+
+    <ClickableCard
+      title={'Property API'}
+      content={'See our technical documentation, to start using our API endpoints. '}
+      buttonLink={'/api/denmark/data/dk-get-property-by-bfe-property-controller'}
+    />
+
+  </section>
+
+</div>
