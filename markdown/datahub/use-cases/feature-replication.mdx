@@ -1,0 +1,74 @@
+<div className={'mdx-layout'}>
+  <section>
+    # Feature Data Replication
+
+    To replicate feature data, users need to consume the following API endpoint: `https://api.predicti.com/datahub/v1/entities/{entityId}/features/{featureName}/history?start=1970-01-01T00:00:00Z` See [API documentation](https://docs.predicti.com/api/datahub/datahub-api) for more details.
+
+    ## How the Endpoint Works
+
+    - The endpoint delivers data in a **chunked HTTP streaming** manner.
+    - It supports multiple response types via the **`Accept` header**, allowing flexible data formats.
+    - The `start` query parameter specifies the timestamp from which to begin streaming data.
+      It should be set to the **`_lastModified`** timestamp of the latest element received during the previous request.
+    - To fully replicate a feature's history, clients must:
+      1. **Stream chunks** of data continuously.
+      2. Track the **`_lastModified`** timestamp of the latest received element.
+      3. Use this timestamp as the `start` parameter in the **next request** to incrementally fetch updates and avoid duplication.
+
+    This approach ensures clients stay synchronized with the latest feature updates over time.
+
+
+    > For performance reasons it is recommended to use the `Accept: application/x-protobuf` header to receive updates in the most efficient format.
+
+
+    ---
+
+    ## Protobuf Implementation Details
+
+    When using `Accept: application/x-protobuf`, the server responds with protobuf-encoded messages containing feature updates.
+
+    Below is the protobuf schema used for streaming feature updates:
+
+    ```protobuf
+    // A value for a feature that occurs at a specific point in time
+    message Value {
+        // The timestamp in history where this value occurs
+        optional fixed64 timestamp = 1;
+        // The value for feature types KEYWORD, DANISH
+        repeated string stringValue = 2;
+        // The value for feature types FLOAT
+        repeated double doubleValue = 3;
+        // The value for feature types BOOLEAN
+        repeated bool boolValue = 4;
+    }
+
+    // An update to an entity for a specific feature
+    message UpdatedEntity {
+        // The feature which is being updated
+        optional string featureName = 1;
+        // The new value for the feature
+        optional Value value = 2;
+    }
+
+    // An update to a feature for a specific entity
+    message UpdatedFeature {
+        // The ID of the entity being updated
+        optional string entityId = 1;
+        // The timestamp at which this update has been applied in the system
+        // (which is not the time at which the value takes effect historically)
+        optional fixed64 timestamp = 2;
+        // The new complete history of the current feature for the given entity
+        repeated Value history = 3;
+    }
+    ```
+
+    ### Notes on Protobuf Fields
+
+    - `Value.timestamp` indicates the historical time the feature value applies to.
+    - `UpdatedFeature.timestamp` shows when the system recorded the update (not the historical value time).
+    - `history` contains the full set of known historical values for the feature at that moment.
+
+    By combining HTTP chunked streaming with protobuf-encoded messages, the replication system efficiently delivers complete and incremental updates for feature data.
+
+  </section>
+</div>

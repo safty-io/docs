@@ -1,0 +1,74 @@
+<div className={'mdx-layout'}>
+  <section>
+    # Understanding Features and Entities
+
+    In Predicti Data, a **feature** is a fundamental data model representing a **single measurable or descriptive value tracked over time**. Features store historical data points, capturing how a specific attribute changes at different timestamps.
+
+    ---
+
+    ## What Is a Feature?
+
+    A **feature** holds one or more values, each associated with a timestamp—forming a **time series** of the attribute's state or measurement.
+
+    ### Feature Structure Example
+
+    ```json
+    {
+      "history": [
+        { "2006-03-08T14:26:56Z": ["2"] },
+        { "2007-05-01T10:15:00Z": ["3"] }
+      ],
+      "id": "11f17ae3-be00-0668-e044-0003ba298018",
+      "_lastModified": "2025-06-03T11:21:46.879Z"
+    }
+    ```
+
+    - `history` records changes over time: each entry links a timestamp to a list of values (usually a single value per timestamp).
+    - `id` uniquely identifies this feature instance.
+    - `_lastModified` tracks the last update time of the feature.
+
+    This structure enables precise tracking of attribute changes, supporting longitudinal analysis and up-to-date status retrieval.
+
+    ## What Is an Entity?
+
+    An **entity** is a logical grouping or container for related features that collectively describe a real-world object or concept, such as:
+
+    - An **address**
+    - A **person**
+    - A **property**
+    - A **household**
+
+    Entities organize features into meaningful sets, making it easier to navigate, query, and manage data.
+
+    ### Example: `address` Entity Features
+
+    - address_houseNumber
+    - address_postalCode
+    - address_city
+    - address_floor
+    - address_door
+
+    Each of these features independently tracks its values over time, maintaining a historical record.
+
+    > See the [Address Data Features](address) documentation for more details on the `address` entity and its features.
+
+    ## Why Use Features with Time-Series History?
+
+    Tracking features as time series allows you to:
+
+    - Understand how values evolve (e.g., changes in residency type, property size, or postal codes).
+    - Perform trend analysis and detect patterns over time.
+    - Access the most current state of an attribute as well as its history for auditing and verification.
+    - Build dynamic and temporal models that react to real-world changes.
+
+    ## Summary
+
+    | Concept     | Description                                                     |
+    | ----------- | --------------------------------------------------------------- |
+    | **Feature** | A single attribute storing values with timestamps (time series) |
+    | **Entity**  | A collection of related features describing a real-world object |
+
+    Together, entities and features provide a powerful framework for managing rich, time-aware data that supports accurate and flexible insights.
+
+  </section>
+</div>
