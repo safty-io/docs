@@ -1,0 +1,136 @@
+<div className={'mdx-layout'}>
+  <section>
+
+    # Address Features
+
+    The `dk-address` entity in Predicti Data provides structured, granular insights into a physical address and its associated residential characteristics. These features help businesses validate, segment, and enrich location-based data with high precision.
+
+    Whether verifying customer details, targeting offers by location type, or analyzing residential density, this set of address-linked data points provides the foundation for accurate, context-rich decision-making.
+
+    **Entity name: `dk-address`**
+
+  </section>
+
+---
+
+  <section>
+    ### Address Features
+
+    - **`address_houseNumber`**
+      _Description_: House number part of the address.
+      _Example_: `28B`
+
+    - **`address_floor`**
+      _Description_: Floor designation of the address, within a building (e.g. 'st' for ground floor).
+      _Example_: `st`
+
+    - **`address_postalCode`**
+      _Description_: Postal code of the address.
+      _Example_: `1234`
+
+    - **`address_city`**
+      _Description_: Postal city of the address (belonging to the postal code).
+      _Example_: `Bramming`
+
+    - **`address_additionalCity`**
+      _Description_: Region within a city to which the address belongs.
+      _Example_: `Nørlem`
+
+    - **`address_door`**
+      _Description_: Door designation of the address, within a floor (e.g. 'tv' for left side).
+      _Example_: `tv`
+
+    - **`address_municipalityCode`**
+      _Description_: A code indicating which municipality the address belongs to.
+      _Example_: `1234`
+
+    - **`address_streetCode`**
+      _Description_: Street code identifying the household’s address.
+      _Example_: `1234`
+
+    ### Main Unit Features
+
+    - **`mainUnit_residenceTypeCode`**
+      _Description_: Code indicating the residence type, e.g., owner-occupied or rental.
+      _Example_: `E`
+
+    - **`mainUnit_numberOfToilets`**
+      _Description_: The number of toilets in the unit.
+      _Example_: `3`
+
+    - **`mainUnit_numberOfRooms`**
+      _Description_: The number of rooms in the unit.
+      _Example_: `4`
+
+    - **`mainUnit_numberOfBathrooms`**
+      _Description_: The number of bathrooms in the unit.
+      _Example_: `1`
+
+    - **`mainUnit_areaForResidence`**
+      _Description_: Area dedicated to residential purposes in square meters.
+      _Example_: `160`
+
+    - **`mainUnit_rentalStatusCode`**
+      _Description_: Code indicating the rental status of the unit.
+      _Example_: `3`
+
+    - **`mainUnit_totalArea`**
+      _Description_: Total area of the unit in square meters.
+      _Example_: `160`
+
+    ### Main Building Features
+
+    - **`mainBuilding_supplementaryHeatingSystemCode`**
+      _Description_: Code for the supplementary heating system.
+      _Example_: `160`
+
+    - **`mainBuilding_constructionYear`**
+      _Description_: Year the main building was constructed.
+      _Example_: `160`
+
+    - **`mainBuilding_builtUpArea`**
+      _Description_: Built-up area of the main building in square meters.
+      _Example_: `160`
+
+    - **`mainBuilding_usageCode`**
+      _Description_: Code indicating building usage (residential, commercial, etc.).
+      _Example_: `160`
+
+    ### 👥 CPR & Resident Features
+
+    - **`residents_youngestResidentBirthDate`**
+      _Description_: Birthdate of the youngest resident.
+      _Example_: `1990-01-02`
+
+    - **`residents_oldestResidentBirthDate`**
+      _Description_: Birthdate of the oldest resident.
+      _Example_: `1990-01-02`
+
+    - **`residents_numberOfResidents`**
+      _Description_: Number of residents living at the address.
+      _Example_: `2`
+
+    ### 🏘️ Resident-Owned Property Features
+
+    - **`residentsProperties_numberOfPrivateHomes`**
+      _Description_: Total number of private homes owned by residents.
+      _Example_: `2`
+
+    - **`residentsProperties_numberOfVacationHomes`**
+      _Description_: Total number of vacation homes owned by residents.
+      _Example_: `1`
+
+    - **`residentsProperties_latestTradePurchasePrice`**
+      _Description_: Purchase price of most recent property trade by residents.
+      _Example_: `1700000`
+
+    - **`residentsProperties_latestTradeClosingDate`**
+      _Description_: Closing date of most recent trade.
+      _Example_: `2025-06-01 00:00:00`
+
+    - **`residentsProperties_latestTransferDate`**
+      _Description_: Transfer date of most recent trade.
+      _Example_: `2025-06-01 00:00:00`
+
+  </section>
+</div>
