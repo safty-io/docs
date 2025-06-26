@@ -30,6 +30,18 @@ import ThemedImage from '@theme/ThemedImage';
       }}
     />
 
+    ---
+
+    ## Full History and Data Updates
+
+    The feature data history endpoint provides the complete history of the requested feature each time a change happens, including all known historical values.
+
+    Because of this:
+    * Each update contains the entire set of historical records for the feature at that point in time.
+    * To keep data consistent, previously stored records for the specific `id` should be replaced with the newly received history.
+    * This method supports data sources that allow corrections or updates to historical feature values, helping to maintain accurate and up-to-date data.
+
+    > Replacing old records with the new full history helps avoid duplication and ensures data stays synchronized.
 
     ---
 
