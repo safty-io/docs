@@ -15,29 +15,30 @@
 
   <section>
     ### Address Features
+    These features describe an address.
 
     - **`address_houseNumber`**
-      _Description_: House number part of the address.
+      _Description_: The house number of the address.
       _Example_: `28B`
 
     - **`address_floor`**
-      _Description_: Floor designation of the address, within a building (e.g. 'st' for ground floor).
+      _Description_: The floor designation of the address (e.g. 'st' for stue, ground floor), if applicable
       _Example_: `st`
 
     - **`address_postalCode`**
-      _Description_: Postal code of the address.
+      _Description_: The postal code of the address.
       _Example_: `1234`
 
     - **`address_city`**
-      _Description_: Postal city of the address (belonging to the postal code).
+      _Description_: The city belonging to address.
       _Example_: `Bramming`
 
     - **`address_additionalCity`**
-      _Description_: Region within a city to which the address belongs.
+      _Description_: Additional city information, if applicable.
       _Example_: `Nørlem`
 
     - **`address_door`**
-      _Description_: Door designation of the address, within a floor (e.g. 'tv' for left side).
+      _Description_: The door designation of the address within a floor, if applicable.
       _Example_: `tv`
 
     - **`address_municipalityCode`**
@@ -45,91 +46,92 @@
       _Example_: `1234`
 
     - **`address_streetCode`**
-      _Description_: Street code identifying the household´s address.
+      _Description_: The street code identifying the address.
       _Example_: `1234`
 
     ### Main Unit Features
+    These features describe an address's main unit. A unit is a specific part of a building, like an apartment, office, or warehouse. An address can have many different units may be associated with it. The main unit selected based on several parameters, such as its usage code, kitchen facilities, area for residence, etc.
 
     - **`mainUnit_residenceTypeCode`**
-      _Description_: Code indicating the residence type, e.g., owner-occupied or rental.
+      _Description_: A code indicating the residence type of the main unit, e.g., owner-occupied or rental.
       _Example_: `E`
 
-    - **`mainUnit_numberOfToilets`**
-      _Description_: The number of toilets in the unit.
+    - **`mainUnit_toilets_count`**
+      _Description_: The number of toilets in the main unit.
       _Example_: `3`
 
-    - **`mainUnit_numberOfRooms`**
-      _Description_: The number of rooms in the unit.
+    - **`mainUnit_rooms_count`**
+      _Description_: The number of rooms in the main unit.
       _Example_: `4`
 
-    - **`mainUnit_numberOfBathrooms`**
-      _Description_: The number of bathrooms in the unit.
+    - **`mainUnit_bathrooms_count`**
+      _Description_: The number of bathrooms in the main unit.
       _Example_: `1`
 
     - **`mainUnit_areaForResidence`**
-      _Description_: Area dedicated to residential purposes in square meters.
+      _Description_: The area dedicated to residential purposes in the main unit, specified in square meters.
       _Example_: `160`
 
     - **`mainUnit_rentalStatusCode`**
-      _Description_: Code indicating the rental status of the unit.
+      _Description_: A code indicating the rental status of the main unit, e.g., vacant or rented.
       _Example_: `3`
 
     - **`mainUnit_totalArea`**
-      _Description_: Total area of the unit in square meters.
+      _Description_: The total area of the main unit, specified in square meters.
       _Example_: `160`
 
     ### Main Building Features
+    These features describe an address's main building. An address can have many different buildings associated with it. The main building is the one housing the main unit.
 
     - **`mainBuilding_supplementaryHeatingSystemCode`**
-      _Description_: Code for the supplementary heating system.
+      _Description_: A code indicating the supplementary heating system in the main building, if applicable.
       _Example_: `160`
 
     - **`mainBuilding_constructionYear`**
-      _Description_: Year the main building was constructed.
+      _Description_: The year that the main building was constructed.
       _Example_: `160`
 
     - **`mainBuilding_builtUpArea`**
-      _Description_: Built-up area of the main building in square meters.
+      _Description_: The total built-up area of the main building in square meters.
       _Example_: `160`
 
     - **`mainBuilding_usageCode`**
-      _Description_: Code indicating building usage (residential, commercial, etc.).
+      _Description_: A code indicating the main building's usage, e.g. residential or commercial.
       _Example_: `160`
 
-    ### 👥 CPR & Resident Features
+    ### 👥 Resident & Resident Property Features
+    These features describe residents associated with the address and their properties. A resident is defined as an adult of legal age residing at the address. We can account for all residents whose names and addresses aren't protected in the CPR Register.
 
-    - **`residents_youngestResidentBirthDate`**
-      _Description_: Birthdate of the youngest resident.
+    - **`residents_birthDate_youngest`**
+      _Description_: The birthdate of the youngest resident.
       _Example_: `1990-01-02`
 
-    - **`residents_oldestResidentBirthDate`**
-      _Description_: Birthdate of the oldest resident.
+    - **`residents_birthDate_oldest`**
+      _Description_: The birthdate of the oldest resident.
       _Example_: `1990-01-02`
 
-    - **`residents_numberOfResidents`**
-      _Description_: Number of residents living at the address.
+    - **`residents_count`**
+      _Description_: The number of residents living at the address.
       _Example_: `2`
 
-    ### 🏘️ Resident-Owned Property Features
-
-    - **`residentsProperties_numberOfPrivateHomes`**
-      _Description_: Total number of private homes owned by residents.
+    - **`residents_ownedPrivateHomes_count`**
+      _Description_: The total number of private homes owned by the residents.
       _Example_: `2`
 
-    - **`residentsProperties_numberOfVacationHomes`**
-      _Description_: Total number of vacation homes owned by residents.
+    - **`residents_ownedVacationHomes_count`**
+      _Description_: The total number of vacation homes owned by the residents.
       _Example_: `1`
 
-    - **`residentsProperties_latestTradePurchasePrice`**
-      _Description_: Purchase price of most recent property trade by residents.
+    - **`residents_propertyTradePurchasePrice_latest`**
+      _Description_: The purchase price of the most recent property trade made by the residents.
       _Example_: `1700000`
 
-    - **`residentsProperties_latestTradeClosingDate`**
-      _Description_: Closing date of most recent trade.
+    - **`residents_propertyTradeClosingDate_latest`**
+      _Description_: The closing date of the most recent property trade made by the residents.
       _Example_: `2025-06-01 00:00:00`
 
-    - **`residentsProperties_latestTransferDate`**
-      _Description_: Transfer date of most recent trade.
+    - **`residents_propertyTransferDate_latest`**
+      _Description_: The closing date of the most recent property trade made by the residents.
       _Example_: `2025-06-01 00:00:00`
 
   </section>
