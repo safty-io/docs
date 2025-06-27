@@ -22,7 +22,7 @@
       _Example_: `28B`
 
     - **`address_floor`**
-      _Description_: The floor designation of the address (e.g. 'st' for stue, ground floor), if applicable
+      _Description_: The floor designation of the address (e.g. 'st' for stue, ground floor).
       _Example_: `st`
 
     - **`address_postalCode`**
@@ -50,7 +50,7 @@
       _Example_: `1234`
 
     ### Main Unit Features
-    These features describe an address's main unit. A unit is a specific part of a building, like an apartment, office, or warehouse. An address can have many different units may be associated with it. The main unit selected based on several parameters, such as its usage code, kitchen facilities, area for residence, etc.
+    These features describe an address's main unit. A unit is a specific part of a building, like an apartment, office, or warehouse. An address can be associated with different units. A main unit is selected among these based on several parameters, such as the units usage code, kitchen facilities, area for residence, etc.
 
     - **`mainUnit_residenceTypeCode`**
       _Description_: A code indicating the residence type of the main unit, e.g., owner-occupied or rental.
@@ -81,10 +81,10 @@
       _Example_: `160`
 
     ### Main Building Features
-    These features describe an address's main building. An address can have many different buildings associated with it. The main building is the one housing the main unit.
+    These features describe an address's main building. An address can be associated with different buildings. The main building is the building which houses the main unit.
 
     - **`mainBuilding_supplementaryHeatingSystemCode`**
-      _Description_: A code indicating the supplementary heating system in the main building, if applicable.
+      _Description_: A code indicating the supplementary heating system in the main building.
       _Example_: `160`
 
     - **`mainBuilding_constructionYear`**
@@ -99,8 +99,8 @@
       _Description_: A code indicating the main building's usage, e.g. residential or commercial.
       _Example_: `160`
 
-    ### Resident & Resident Property Features
-    These features describe residents associated with the address and their properties. A resident is defined as an adult of legal age residing at the address. We can account for all residents whose names and addresses aren't protected in the CPR Register.
+    ### 👥 CPR & Resident Features
+    These features describe the residents associated with the address and their properties. A resident is defined as an adult of legal age residing at the address. We can account for all residents whose names and addresses aren't protected in the CPR Register.
 
     - **`residents_birthDate_youngest`**
       _Description_: The birthdate of the youngest resident.
@@ -113,6 +113,8 @@
     - **`residents_count`**
       _Description_: The number of residents living at the address.
       _Example_: `2`
+
+    ### 🏘️ Resident-Owned Property Features
 
     - **`residents_ownedPrivateHomes_count`**
       _Description_: The total number of private homes owned by the residents.
