@@ -1,0 +1,98 @@
+<div className={'mdx-layout'}>
+  <section>
+    # Source Data Streaming
+
+    Source Data Streaming provides direct, real-time access to raw data from public registers via a simple **HTTP chunked API**.
+    This lets you integrate and process fresh data the moment it becomes available — without having to manage complex ingestion pipelines.
+
+    Behind the scenes, our platform handles all the heavy lifting, ensuring delivery, ordering, and scaling.
+    You just connect, and the data flows to you.
+
+    ---
+
+    ## Why Source Data Streaming?
+
+    - **Easy to consume** - Read events from a single HTTP endpoint with no extra dependencies.
+    - **Near real-time updates** - Receive new records within seconds of registration.
+    - **No infrastructure overhead** - No message broker setup or queue management required.
+    - **Horizontal scaling** - Partitioned delivery for high throughput.
+
+    ---
+
+    ## Currently Supported Sources
+
+    We currently stream data from the following sources:
+
+    **Danish**
+    - **BBR** - Building and housing register
+    - **EBR** - Property location register
+    - **DST** - Statistics Denmark
+    - **DAR** - Address register
+    - **CVR** - Company register
+    - **Tinglysning** - Public debt register
+    - **MAT2** - Cadastral register
+    - **VUR** - Property value register
+    - **EJF** - Property ownership register
+
+    > Many more sources are coming soon.
+
+    ---
+
+    ## Data Structure
+
+    All streamed events follow this envelope:
+
+    ```json
+    {
+      "key": "2194433",
+      "value": {...},
+      "timestamp": "2025-08-11T23:51:33.469Z",
+      "partition": 3,
+      "offset": "162398"
+    }
+    ```
+
+    | Field         | Type              | Description                                                                     |
+    | ------------- | ----------------- | ------------------------------------------------------------------------------- |
+    | **key**       | string            | Unique identifier for the record, defined per source.                           |
+    | **value**     | string            | object The raw payload from the source system. Structure varies by source.      |
+    | **timestamp** | string (ISO 8601) | When the record was registered in our system.                                   |
+    | **partition** | integer           | Partition used for scaling and offset tracking.                                 |
+    | **offset**    | string            | Sequential offset within the partition. Use for resuming from a specific point. |
+
+    ---
+
+    ## Connecting to the Stream
+
+    The API delivers Server-Sent Events (SSE) over HTTP using chunked transfer encoding.
+
+    Example request:
+
+    ```bash
+    curl --location 'https://api.predicti.com/datahub/v1/sources/dk-public-debt-property/stream' \
+      --header 'x-api-key: <<API_KEY>>' \
+      --header 'Accept: application/x-ndjson'
+    ```
+
+    Example responsee
+
+    ```ndjson
+    data: {"key":"2194433","value":{...},"timestamp":"2025-08-11T23:51:33.469Z","partition":3,"offset":"162398"}
+    data: {"key":"2194434","value":{...},"timestamp":"2025-08-11T23:51:35.120Z","partition":1,"offset":"162399"}
+    ```
+
+    ## Handling Offsets
+
+    Each event includes an offset and partition that can be used to reset the stream to point in time.
+
+    The API automatically handles commiting offsets and no offset has to be provided when streaming data.
+
+    ## Integration Patterns
+
+    - Real-time ETL into your data lake or warehouse.
+    - Event-driven application logic.
+    - Continuous sync to your operational systems.
+    - Monitoring and anomaly detection pipelines.
+
+  </section>
+</div>
