@@ -56,14 +56,14 @@ import ThemedImage from '@theme/ThemedImage';
     message Value {
         // The timestamp in history where this value occurs
         optional fixed64 effectiveFrom = 1;
-    // The value for feature types KEYWORD, DANISH, LOCALDATE (in ISO format, yyyy-mm-dd)
+        // The value for feature types KEYWORD, DANISH, LOCALDATE (in ISO format, yyyy-mm-dd)
         repeated string stringValue = 2;
         // The value for feature types FLOAT
         repeated double doubleValue = 3;
         // The value for feature types BOOLEAN
         repeated bool boolValue = 4;
-	// The value for feature types INSTANT and LOCALDATETIME (as milliseconds since the epoch)
-	repeated sfixed64 instantValue = 5;
+        // The value for feature types INSTANT and LOCALDATETIME (as milliseconds since the epoch)
+        repeated sfixed64 instantValue = 5;
     }
 
     // An update to an entity for a specific feature
