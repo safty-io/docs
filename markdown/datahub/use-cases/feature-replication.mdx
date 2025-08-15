@@ -55,13 +55,15 @@ import ThemedImage from '@theme/ThemedImage';
     // A value for a feature that occurs at a specific point in time
     message Value {
         // The timestamp in history where this value occurs
-        optional fixed64 timestamp = 1;
-        // The value for feature types KEYWORD, DANISH
+        optional fixed64 effectiveFrom = 1;
+    // The value for feature types KEYWORD, DANISH, LOCALDATE (in ISO format, yyyy-mm-dd)
         repeated string stringValue = 2;
         // The value for feature types FLOAT
         repeated double doubleValue = 3;
         // The value for feature types BOOLEAN
         repeated bool boolValue = 4;
+	// The value for feature types INSTANT and LOCALDATETIME (as milliseconds since the epoch)
+	repeated sfixed64 instantValue = 5;
     }
 
     // An update to an entity for a specific feature
@@ -78,7 +80,7 @@ import ThemedImage from '@theme/ThemedImage';
         optional string entityId = 1;
         // The timestamp at which this update has been applied in the system
         // (which is not the time at which the value takes effect historically)
-        optional fixed64 timestamp = 2;
+        optional fixed64 lastModified = 2;
         // The new complete history of the current feature for the given entity
         repeated Value history = 3;
     }
@@ -86,8 +88,8 @@ import ThemedImage from '@theme/ThemedImage';
 
     ### Notes on Protobuf Fields
 
-    - `Value.timestamp` indicates the historical time the feature value applies to.
-    - `UpdatedFeature.timestamp` shows when the system recorded the update (not the historical value time).
+    - `Value.effectiveFrom` indicates the historical time the feature value applies to.
+    - `UpdatedFeature.lastModified` shows when the system recorded the update (not the historical value time).
     - `history` contains the full set of known historical values for the feature at that moment.
 
     By combining HTTP chunked streaming with protobuf-encoded messages, the replication system efficiently delivers complete and incremental updates for feature data.
