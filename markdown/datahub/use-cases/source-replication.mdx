@@ -1,0 +1,120 @@
+import ThemedImage from '@theme/ThemedImage';
+
+<div className={'mdx-layout'}>
+  <section>
+    # Use Case: Source Data Streaming
+ 
+    To stream data from a registry, send a request to the streaming endpoint: 
+    ```bash
+      curl --location 'https://api.predicti.com/datahub/v1/sources/{sourceName}/stream' \
+        --header 'x-api-key: {API_KEY}' \
+        --header 'Accept: application/x-ndjson'
+    ```
+
+    ---
+
+    ## How the Endpoint Works
+
+    * Uses **chunked HTTP streaming** to deliver records as they become available.
+    * Offets are automatically tracked by the API.
+    * Streams has a max lenght of 25 seconds.
+
+    <ThemedImage
+      alt="Source Replication Flow"
+      sources={{
+        light: '/img/use-cases/source_replication_light.svg',
+        dark: '/img/use-cases/source_replication_dark.svg',
+      }}
+    />
+
+    ---
+
+    ### Example: How to steam data
+
+    ```bash
+    # Initial connection (start from earliest record)
+    curl --location 'https://api.predicti.com/datahub/v1/sources/{sourceName}/stream' \
+        --header 'x-api-key: {API_KEY}' \
+        --header 'Accept: application/x-ndjson'
+    ```
+
+    ---
+
+    ## How to handle offsets
+
+    By default, if you **do not set an offset**, the stream will start from the **earliest available messages**.
+
+    You can change the starting position by calling the **offsets API**:
+
+    ```
+    PUT https://api.predicti.com/datahub/v1/sources/{sourceName}/offsets
+    ```
+
+    ---
+
+    ### Offset Options
+
+    - `offset=-2` → Reset to **earliest available messages** (default behavior if no offset is set).
+    - `offset=-1` → Reset to **latest messages** (skip to end).
+    - `ISO 8601 timestamp` → Reset to a **specific time** (e.g. `2024-01-15T10:30:00Z`).
+    - **Partition-specific control** → Send a JSON body specifying offsets per partition.
+
+    ---
+
+    ### Example: Reset to Earliest
+
+    ```bash
+    curl -X POST \
+      -H "Authorization: Bearer <token>" \
+      -H "Content-Type: application/json" \
+      https://api.predicti.com/datahub/v1/sources/bbr/offsets \
+      -d '{"offset": -2}'
+    ```
+
+    ### Example: Reset to Specific Time
+
+    ```bash
+    curl -X POST \
+      -H "Authorization: Bearer <token>" \
+      -H "Content-Type: application/json" \
+      https://api.predicti.com/datahub/v1/sources/bbr/offsets \
+      -d '{"offset": "2024-01-15T10:30:00Z"}'
+    ```
+
+    ### Example: Partition-specific Offsets
+
+    ```bash
+    curl -X POST \
+      -H "Authorization: Bearer <token>" \
+      -H "Content-Type: application/json" \
+      https://api.predicti.com/datahub/v1/sources/bbr/offsets \
+      -d '{
+        "offsets": [
+            { "partition": 0, "offset": "1" },
+            { "partition": 1, "offset": "1" },
+            { "partition": 2, "offset": "2" },
+            { "partition": 3, "offset": "2" },
+            { "partition": 4, "offset": "3" },
+            { "partition": 5, "offset": "3" },
+            { "partition": 6, "offset": "4" },
+            { "partition": 7, "offset": "4" },
+            { "partition": 8, "offset": "5" }
+        ]
+    }'
+    ```
+
+    > Tip: Adjusting offsets is useful for reprocessing historical data, skipping already-processed data, or recovering from processing errors.
+
+    ---
+
+    ## Why Stream Source Data?
+
+    | Benefit                  | Description                                                               |
+    | ------------------------ | ------------------------------------------------------------------------- |
+    | Near real-time data flow | Records delivered as soon as they're available in your source registry.   |
+    | No infrastructure        | Just HTTP—no configuration of brokers or streaming frameworks.            |
+    | Effortless resumption    | Partition + offset tracking ensures seamless recovery from interruptions. |
+    | Scalable ingestion       | Partitioning enables parallel processing and high-throughput pipelines.   |
+
+  </section>
+</div>
