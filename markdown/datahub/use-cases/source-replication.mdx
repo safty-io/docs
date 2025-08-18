@@ -1,23 +1,19 @@
-import ThemedImage from '@theme/ThemedImage';
+import ThemedImage from "@theme/ThemedImage";
 
 <div className={'mdx-layout'}>
   <section>
-    # Use Case: Source Data Streaming
- 
-    To stream data from a registry, send a request to the streaming endpoint: 
-    ```bash
-      curl --location 'https://api.predicti.com/datahub/v1/sources/{sourceName}/stream' \
-        --header 'x-api-key: {API_KEY}' \
-        --header 'Accept: application/x-ndjson'
-    ```
+    # Use Case: Replicating Public Register Data
+
+    This page describes how you can use the streaming API to **replicate entire public registers** into your own systems.
+    By connecting to the stream once, you can maintain a local copy that is always current, without waiting for batch file deliveries.
 
     ---
 
     ## How the Endpoint Works
 
-    * Uses **chunked HTTP streaming** to deliver records as they become available.
-    * Offets are automatically tracked by the API.
-    * Streams has a max lenght of 25 seconds.
+    - Streams use **chunked HTTP** to deliver records as they become available.
+    - **Offsets are tracked automatically**, ensuring continuity across reconnects.
+    - Streams run in **25-second sessions** (automatically re-established if kept open).
 
     <ThemedImage
       alt="Source Replication Flow"
@@ -29,10 +25,21 @@ import ThemedImage from '@theme/ThemedImage';
 
     ---
 
-    ### Example: How to steam data
+    ## Understanding Offsets and Partitions
+
+    Offsets determine **where in the data history** your stream begins, and partitions provide **parallel lanes** for scale.
+
+    - **Partitions** split the stream into lanes so high volumes can be processed in parallel.
+    - **Offsets** mark your exact position within each lane, enabling resume, replay, or skipping ahead.
+
+    Think of offsets as **bookmarks in each lane**: you can replay, skip ahead, or pick up exactly where you left off.
+
+    ---
+
+    ## Example: Streaming Data
 
     ```bash
-    # Initial connection (start from earliest record)
+    # Start streaming from the earliest available record
     curl --location 'https://api.predicti.com/datahub/v1/sources/{sourceName}/stream' \
         --header 'x-api-key: {API_KEY}' \
         --header 'Accept: application/x-ndjson'
@@ -40,29 +47,15 @@ import ThemedImage from '@theme/ThemedImage';
 
     ---
 
-    ## How to handle offsets
+    ## Handling Offsets
 
-    By default, if you **do not set an offset**, the stream will start from the **earliest available messages**.
-
-    You can change the starting position by calling the **offsets API**:
-
-    ```
-    PUT https://api.predicti.com/datahub/v1/sources/{sourceName}/offsets
-    ```
-
-    ---
-
-    ### Offset Options
-
-    - `offset=-2` → Reset to **earliest available messages** (default behavior if no offset is set).
-    - `offset=-1` → Reset to **latest messages** (skip to end).
-    - `ISO 8601 timestamp` → Reset to a **specific time** (e.g. `2024-01-15T10:30:00Z`).
-    - **Partition-specific control** → Send a JSON body specifying offsets per partition.
-
-    ---
+    - **Default (no offset)** → start from **earliest available messages**.
+    - **`-1`** → jump to the **latest records** (skip history).
+    - **`-2`** → reset to the very beginning (same as default).
+    - **ISO 8601 timestamp** → start from a **specific point in time**.
+    - **Partition control** → set offsets **per partition** for fine-grained replay.
 
     ### Example: Reset to Earliest
-
     ```bash
     curl -X POST \
       -H "Authorization: Bearer <token>" \
@@ -72,17 +65,15 @@ import ThemedImage from '@theme/ThemedImage';
     ```
 
     ### Example: Reset to Specific Time
-
     ```bash
     curl -X POST \
-      -H "Authorization: Bearer <token>" \
+      -H "Authorization: Bearer <token)" \
       -H "Content-Type: application/json" \
       https://api.predicti.com/datahub/v1/sources/bbr/offsets \
       -d '{"offset": "2024-01-15T10:30:00Z"}'
     ```
 
     ### Example: Partition-specific Offsets
-
     ```bash
     curl -X POST \
       -H "Authorization: Bearer <token>" \
@@ -90,31 +81,43 @@ import ThemedImage from '@theme/ThemedImage';
       https://api.predicti.com/datahub/v1/sources/bbr/offsets \
       -d '{
         "offsets": [
-            { "partition": 0, "offset": "1" },
-            { "partition": 1, "offset": "1" },
-            { "partition": 2, "offset": "2" },
-            { "partition": 3, "offset": "2" },
-            { "partition": 4, "offset": "3" },
-            { "partition": 5, "offset": "3" },
-            { "partition": 6, "offset": "4" },
-            { "partition": 7, "offset": "4" },
-            { "partition": 8, "offset": "5" }
+          { "partition": 0, "offset": "1" },
+          { "partition": 1, "offset": "1" },
+          { "partition": 2, "offset": "2" },
+          { "partition": 3, "offset": "2" },
+          { "partition": 4, "offset": "3" },
+          { "partition": 5, "offset": "3" },
+          { "partition": 6, "offset": "4" },
+          { "partition": 7, "offset": "4" },
+          { "partition": 8, "offset": "5" }
         ]
-    }'
+      }'
     ```
 
-    > Tip: Adjusting offsets is useful for reprocessing historical data, skipping already-processed data, or recovering from processing errors.
+    > Adjusting offsets is useful for reprocessing historical data, skipping already-processed messages, or recovering after errors.
 
     ---
 
-    ## Why Stream Source Data?
+    ## How This Compares to Traditional Approaches
 
-    | Benefit                  | Description                                                               |
-    | ------------------------ | ------------------------------------------------------------------------- |
-    | Near real-time data flow | Records delivered as soon as they're available in your source registry.   |
-    | No infrastructure        | Just HTTP—no configuration of brokers or streaming frameworks.            |
-    | Effortless resumption    | Partition + offset tracking ensures seamless recovery from interruptions. |
-    | Scalable ingestion       | Partitioning enables parallel processing and high-throughput pipelines.   |
+    - No waiting for nightly CSV files or scheduled imports.
+    - Data is **always current**, arriving within seconds of registration.
+    - Lightweight HTTP-based connection—no heavy brokers or clusters required.
+    - Built for both operational replication and analytical pipelines.
+
+    ---
+
+    ## Practical Benefits for Organizations
+
+    Replicating via streaming enables:
+
+    - Maintaining a **local database** that mirrors official registers in real time.
+    - Removing delays caused by batch jobs or manual data transfers.
+    - Easier **compliance and auditing** with full replayable event logs.
+    - **Real-time dashboards, alerts, and analytics** that run on live data.
+    - Effortless scaling from single-system replication to enterprise-wide data lakes.
+
+    The result is a **faster, more reliable, and lower-cost integration** with public data sources.
 
   </section>
 </div>

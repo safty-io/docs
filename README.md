@@ -1,7 +1,7 @@
 ![Predicti Logo](./primary_logo_white.svg)
 # Predicti API Documentation
 
-Welcome to the official repository for Predicti API documentation. This repository contains markdown files documenting the APIs for Predicti’s services.
+Welcome to the official repository for Predicti API documentation. This repository contains markdown files documenting the APIs for Predicti´s services.
 
 ## Purpose
 
