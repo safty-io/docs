@@ -1,0 +1,148 @@
+import ThemedImage from "@theme/ThemedImage";
+
+<div className={'mdx-layout'}>
+  <section>
+    # Source Data Streaming
+
+    **Source Data Streaming** provides direct, real-time access to raw data from public registers through a simple **HTTP streaming API**.
+    Instead of waiting for file deliveries or maintaining heavy ingestion pipelines, you can connect once and receive updates continuously as they happen.
+
+    This page introduces the concept, shows how to connect, explains offsets and partitions, and outlines advantages for teams and organizations.
+
+    ---
+
+    ## Why Source Data Streaming?
+
+    - **Easy to consume** - Stream events from a single HTTP endpoint with no extra dependencies.
+    - **Near real-time updates** - New records are delivered within seconds of registration.
+    - **No infrastructure overhead** - No brokers, queues, or message buses to maintain.
+
+    ---
+
+    ## Currently Supported Sources
+
+    We currently provide streams from these Danish public registers:
+
+    - **BBR** - Building and housing register
+    - **EBR** - Property location register
+    - **DST** - Statistics Denmark
+    - **DAR** - Address register
+    - **CVR** - Company register
+    - **Tinglysning** - Public debt register
+    - **MAT2** - Cadastral register
+    - **VUR** - Property value register
+    - **EJF** - Property ownership register
+
+    > Many more sources are coming soon.
+
+    ---
+
+    ## Data Structure
+
+    Each streamed event follows this common envelope:
+
+    ```json
+    {
+      "key": "2194433",
+      "value": {...},
+      "timestamp": "2025-08-11T23:51:33.469Z",
+      "partition": 3,
+      "offset": "162398"
+    }
+    ```
+
+    | Field         | Type              | Description                                                                 |
+    | ------------- | ----------------- | --------------------------------------------------------------------------- |
+    | **key**       | string            | Unique identifier for the record, defined per source.                       |
+    | **value**     | object            | The raw payload from the source system (structure varies by source).        |
+    | **timestamp** | string (ISO 8601) | When the record was registered in our system.                               |
+    | **partition** | integer           | Partition number used for scaling and ordering.                             |
+    | **offset**    | string            | Sequential position within the partition (used to resume from a past point).|
+
+    ---
+
+    ## Connecting to the Stream
+
+    The API delivers events as **Server-Sent Events (SSE)** over HTTP using chunked transfer encoding.
+
+    **Example request**
+    ```bash
+    curl --location 'https://api.predicti.com/datahub/v1/sources/dk-public-debt-property/stream' \
+      --header 'x-api-key: <<API_KEY>>' \
+      --header 'Accept: application/x-ndjson'
+    ```
+
+    **Example response**
+    ```ndjson
+    data: {"key":"2194433","value":{...},"timestamp":"2025-08-11T23:51:33.469Z","partition":3,"offset":"162398"}
+    data: {"key":"2194434","value":{...},"timestamp":"2025-08-11T23:51:35.120Z","partition":1,"offset":"162399"}
+    ```
+
+    ---
+
+    ## Understanding Offsets and Partitions
+
+    Each event carries an **offset** and belongs to a **partition**.
+
+    - **Partition** - Think of a partition as a “lane” on a highway. Instead of putting all events in one single line, the data is split across multiple lanes. This allows the system to scale horizontally and deliver very high throughput.
+    - **Offset** - Within each partition, events are numbered sequentially (like page numbers in a book). The offset tells you exactly where you are in that lane.
+
+    Together, partitions and offsets make the stream both **scalable** and **reliable**.
+
+    - If your connection drops, you can reconnect at the **same offset** in the correct partition.
+    - If you want to replay history, you can reset offsets to earlier values.
+    - If you only want the latest updates, you can skip forward to the newest offset.
+
+    By default, the API automatically manages offsets. Manual control is available for advanced use cases.
+
+    <ThemedImage
+      alt="Partitions and offsets overview"
+      sources={{
+        light: '/img/partitions_light.svg',
+        dark: '/img/partitions_dark.svg',
+      }}
+    />
+
+    **Reading the diagram**
+
+    In the illustration above, the stream is split into three partitions, each with its own sequence of offsets. The highlighted (green) messages show the client's current reading position within each partition.
+
+    - On Partition 1, the client has read 3 messages.
+    - On Partition 2, the client has read 4 messages.
+    - On Partition 3, the client has read 2 messages.
+
+    In total, the client has consumed **9 messages**.
+
+    Messages not yet read:
+    - 4 pending in Partition 1,
+    - 1 pending in Partition 2,
+    - 6 pending in Partition 3.
+
+    The client is **11 messages behind** the source across all partitions.
+
+    ---
+
+    ## Advantages of Event Streaming
+
+    Event streaming offers a modern alternative to scheduled file transfers:
+
+    - Continuous data flow instead of waiting for daily or weekly CSV drops.
+    - Always-fresh data with no risk of processing outdated information.
+    - Simple HTTP connection, usable from any language or platform.
+    - Lightweight but robust—no brokers or clusters to manage.
+
+    ---
+
+    ## From a Business Perspective
+
+    With Source Data Streaming, organizations can:
+
+    - Build a **local replica database** that stays synchronized with public registers.
+    - Base decisions on **up-to-the-minute information**, not yesterday´s files.
+    - Reduce operational costs by removing manual imports and batch jobs.
+    - Support **real-time monitoring, compliance, or market analysis** directly from the live data flow.
+
+    In effect, streaming turns public registers into a **living data source** that your business can rely on continuously.
+
+  </section>
+</div>
