@@ -53,7 +53,7 @@
     These features describe an address's main unit. A unit is a specific part of a building, like an apartment, office, or warehouse. An address can be associated with different units. A main unit is selected among these based on several parameters, such as the units usage code, kitchen facilities, area for residence, etc.
 
     - **`mainUnit_residenceTypeCode`**
-      _Description_: A code indicating the residence type of the main unit, e.g., owner-occupied or rental.
+      _Description_: A code indicating the residence type of the main unit, e.g. owner-occupied or rental.
       _Example_: `E`
 
     - **`mainUnit_toilets_count`**
@@ -73,12 +73,60 @@
       _Example_: `160`
 
     - **`mainUnit_rentalStatusCode`**
-      _Description_: A code indicating the rental status of the main unit, e.g., vacant or rented.
+      _Description_: A code indicating the rental status of the main unit, e.g. vacant or rented.
       _Example_: `3`
 
     - **`mainUnit_totalArea`**
       _Description_: The total area of the main unit, specified in square meters.
       _Example_: `160`
+
+    - **`mainUnit_usageCode`**
+      _Description_: A code indicating the main unit’s usage, e.g. residential or commercial.
+      _Example_: `130`
+
+    - **`mainUnit_approvedAsEmptyResidenceCode`**
+      _Description_: A code indicating whether the main unit is approved as an empty residence.
+      _Example_: `0`
+
+    - **`mainUnit_numberOfRoomsForBusiness`**
+      _Description_: The number of rooms dedicated to business purposes in the main unit.
+      _Example_: `1`
+
+    - **`mainUnit_areaForBusiness`**
+      _Description_: The area dedicated to business purposes in the main unit, specified in square meters.
+      _Example_: `90`
+
+    - **`mainUnit_toiletFacilitiesCode`**
+      _Description_: A code indicating the kind of toilet facilities in the main unit.
+      _Example_: `B`
+
+    - **`mainUnit_bathingFacilitiesCode`**
+      _Description_: A code indicating the kind of bathing facilities in the main unit.
+      _Example_: `C`
+
+    - **`mainUnit_kitchenFacilitiesCode`**
+      _Description_: A code indicating the kind of kitchen facilities in the main unit.
+      _Example_: `E`
+
+    - **`mainUnit_energySupplyCode`**
+      _Description_: A code indicating the main unit’s energy supply, e.g. electricity, gas, or district heating.
+      _Example_: `1`
+
+    - **`mainUnit_publicSupportCode`**
+      _Description_: A code indicating the kind of public support for the main unit.
+      _Example_: `10`
+
+    - **`mainUnit_heatingFuelCode`**
+      _Description_: A code indicating the type of fuel used for the main unit’s heating, e.g. oil or gas.
+      _Example_: `2`
+
+    - **`mainUnit_heatingSystemCode`**
+      _Description_: A code indicating the main unit’s heating system, e.g. central heating or electric heating.
+      _Example_: `2`
+
+    - **`mainUnit_supplementaryHeatingSystemCode`**
+      _Description_: A code indicating a supplementary heating system in the main unit, if applicable.
+      _Example_: `5`
 
     ### Main Building Features
     These features describe an address's main building. An address can be associated with different buildings. The main building is the building which houses the main unit.
@@ -98,6 +146,86 @@
     - **`mainBuilding_usageCode`**
       _Description_: A code indicating the main building's usage, e.g. residential or commercial.
       _Example_: `160`
+
+    - **`mainBuilding_reconstructionYear`**
+      _Description_: The year of the most recent reconstruction or renovation of the main building.
+      _Example_: `2010`
+
+    - **`mainBuilding_outerWallMaterialCode`**
+      _Description_: A code indicating the material of the main building’s outer walls.
+      _Example_: `2`
+
+    - **`mainBuilding_roofMaterialCode`**
+      _Description_: A code indicating the material of the main building’s roof.
+      _Example_: `2`
+
+    - **`mainBuilding_totalBuildingArea`**
+      _Description_: Total area of the main building in square meters.
+      _Example_: `200`
+
+    - **`mainBuilding_totalAreaForResidence`**
+      _Description_: The area dedicated to residential purposes in the main building.
+      _Example_: `120`
+
+    - **`mainBuilding_totalAreaForBusiness`**
+      _Description_: The area dedicated to business purposes in the main building.
+      _Example_: `20`
+
+    - **`mainBuilding_heatingSystemCode`**
+      _Description_: A code indicating the heating system of the main building.
+      _Example_: `5`
+
+    - **`mainBuilding_waterSupplyCode`**
+      _Description_: A code indicating the water supply of the main building.
+      _Example_: `2`
+
+    - **`mainBuilding_drainageCode`**
+      _Description_: A code indicating the drainage system of the main building.
+      _Example_: `2`
+
+    - **`mainBuilding_sourceOfInformationForBuildingMaterialsCode`**
+      _Description_: A code indicating the source of information about the main building’s construction materials.
+      _Example_: `2`
+
+    - **`mainBuilding_areaOfBuiltInGarage`**
+      _Description_: The area of the built-in garage in the main building, specified in square meters.
+      _Example_: `2`
+
+    - **`mainBuilding_areaOfBuiltInCarport`**
+      _Description_: The area of the built-in carport in the main building, specified in square meters.
+      _Example_: `10`
+
+    - **`mainBuilding_areaOfBuiltInShed`**
+      _Description_: The area of the built-in shed in the main building, specified in square meters.
+      _Example_: `10`
+
+    - **`mainBuilding_areaOfBuiltInSunroomOrSimilar`**
+      _Description_: The area of the built-in sunroom or similar in the main building, specified in square meters.
+      _Example_: `10`
+
+    - **`mainBuilding_numberOfFloors`**
+      _Description_: The number of floors in the main building.
+      _Example_: `2`
+
+    - **`mainBuilding_heatingFuelCode`**
+      _Description_: A code indicating the type of fuel used for the main building’s heating system, e.g. oil, gas, or district heating.
+      _Example_: `2`
+
+    - **`mainBuilding_listedForProtectionCode`**
+      _Description_: A code indicating whether the main building is listed for protection or has special preservation status.
+      _Example_: `2`
+
+    - **`mainBuilding_constructionInsuranceCompanyCode`**
+      _Description_: A code indicating the insurance company covering the main building’s construction.
+      _Example_: `2`
+
+    - **`mainBuilding_sewageDischargePermitCode`**
+      _Description_: A code indicating the permit for sewage discharge from the main building.
+      _Example_: `2`
+
+    - **`mainBuilding_coveredByConstructionInsuranceCode`**
+      _Description_: A code indicating whether the main building is covered by construction insurance.
+      _Example_: `10`
 
     ### 👥 CPR & Resident Features
     These features describe the residents associated with the address and their properties. A resident is defined as an adult of legal age residing at the address. We can account for all residents whose names and addresses aren't protected in the CPR Register.
@@ -153,6 +281,30 @@
     - **`householdStatistics_totalIncome_dst`**
       _Description_: Total annual income of the household, based on income data from Danmarks Statistik.
       _Example_: `632049`
+
+    - **`householdStatistics_isCouple_probability_dst`**
+      _Description_: Statistics from DST stating the likelihood of a couple living on the person's public address.
+      _Example_: `0.608910891089109`
+
+    - **`householdStatistics_hasChildren_probability_dst`**
+      _Description_: Statistics from DST stating the likelihood of one or more children residing at the person's public address.
+      _Example_: `0.537128712871287`
+
+    - **`householdStatistics_totalIncome_dst`**
+      _Description_: Statistics from DST stating the expected income of the household living on the person's public address.
+      _Example_: `978972.0`
+
+    - **`householdStatistics_age_oldest_dst`**
+      _Description_: Statistics from DST stating the expected age of the oldest person sharing the person's public address.
+      _Example_: `63.06`
+
+    - **`householdStatistics_mainContributorHasEmployment_probability_dst`**
+      _Description_: Statistics from DST stating the likelihood of the main contributor of the household having employment.
+      _Example_: `0.608478802992519`
+
+    - **`householdStatistics_mainContributorIsEmployee_probability_dst`**
+      _Description_: Statistics from DST stating the likelihood of the main contributor of the household has employment as an employee.
+      _Example_: `0.5248756218905473`
 
   </section>
 </div>
