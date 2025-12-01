@@ -49,5 +49,29 @@
     * Historical Data: Access up to 100 years of data from certain registries, with most covering the past 20 years.
     * Comprehensive Scope: Includes data on individuals, households, businesses, and properties, providing a holistic view.
 
+    #### IDs and references
+
+    In the Data API, five central IDs are used to connect people, addresses, properties, companies, and vehicles. These five entities are the primary logical entities in the underlying data structure.
+    Any reference to these IDs in the Data API can be used as a cross-reference for looking up the entity in greater detail in a different endpoint.
+
+    The five IDs are explained in more detail below:
+    * **addressId**: A public UUID for an address, e.g. 0a3f9c2e-7b12-4d6d-9f7b-2a4c83c1e9a1. It is a stable ID that exists throughout the entire lifecycle of an address.
+      The address label itself may change (e.g. when “Fasanvej 7” becomes “Fasanvej 7A”) without affecting the addressId. The addressId mirrors the identifier from the public Danish register Danmarks Adresseregister (DAR),
+      is assigned by the authorities, and can be used with other public services such as DAWA’s address lookup service.
+    * **personId**: A private UUID for a person, e.g. e7974354-0d9a-484f-8647-af7c382adbb0. It is a stable ID that exists throughout the entire lifecycle of a person.
+      First name, last name, gender, and CPR number may change without affecting the personId. The personId is created and maintained by Predicti and can only be used to reference Predicti APIs and endpoints.
+    * **vehicleId**: A public, uniquely defined ID for a vehicle, e.g. 9000000003365026. It is a stable ID that exists throughout the entire lifecycle of a vehicle.
+      License plate, owner/user, and technical information may change without affecting the vehicleId. The vehicleId mirrors the unique vehicle identifier (“Køretøj-ID” / “KID”) from the Danish Motor Register (DMR),
+      is assigned by the authorities, and can be used with other public services such as the DMR vehicle lookup service. Note that this ID does not follow a standardized UUID format.
+    * **propertyId**: A public, uniquely defined ID for a property unit in the Danish cadastre, e.g. 2137973. Ownership, trades, the associated address, and rights registered in the Danish Land Register (Tingbogen)
+      may all change without affecting the propertyId. The propertyId mirrors the identifier from the Danish cadastre (Matriklen) known as the **BFE number**. Conceptually,
+      it identifies a property unit that should be treated as one entity in connection with a property trade. The propertyId is assigned by the authorities and can be used with other public services
+      such as lookup services from the Danish Property Assessment Agency (Vurderingsstyrelsen). Note that this ID does not follow a standardized UUID format.
+      Cadastral changes that create a new real-property identity—such as subdivision, merger (amalgamation) of parcels, or condominium formation—may result in a new propertyId.
+    * **companyId**: A public, uniquely defined ID for a legal entity in the Danish Central Business Register, and a stable ID that exists throughout the entire lifecycle of the legal entity.
+      A company’s name, owners, address, operational industry codes, etc. may change without affecting the companyId. The companyId mirrors the unique identifier **(CVR number)** assigned by the authorities
+      and can be used with other public services such as the CVR company lookup service. Note that this ID does not follow a standardized UUID format. Changes where a new legal entity is created—such as mergers,
+      demergers, or a change of legal form—may result in a new companyId.
+
   </section>
 </div>
