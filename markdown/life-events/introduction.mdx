@@ -1,0 +1,200 @@
+<div className={'mdx-layout'}>
+  <section>
+
+    # Life Events
+
+    Life Events is a real-time service that provides structured insight into meaningful changes in your customers’
+    lives. By combining 1st-party data (portfolio data) with 3rd-party data (public registries), Life Events
+    automatically identifies and delivers relevant updates such as property purchases, address changes,
+    or company activity. This enables proactive communication, smarter workflows, and an always up-to-date
+    understanding of your customers.
+
+  </section>
+
+---
+
+  <section>
+
+    ## Event Types
+
+    Life Events covers a wide range of meaningful updates, including:
+
+    * purchasing a new home or car
+    * changing address
+    * creating or closing a company
+    * income changes
+    * updates to ownership or property characteristics
+
+    Instead of relying on static profiles or outdated information, Life Events gives you a continuously
+    updated view of what is happening as it happens.
+
+    Life Events are available for:
+
+    * Company events
+    * Person events
+    * Property events
+
+    </section>
+
+    ---
+
+    <section>
+
+    ## How Life Events Are Generated
+
+    Life Events are created by combining two types of data:
+
+    * 1st-party data (portfolio data) – the persons, companies, properties, and vehicles already present
+    in your portfolio, based on the data you hold in your own systems. This defines which entities Predicti
+    monitors on your behalf.
+    * 3rd-party data (public data) – public data sources that provide updates such as property transactions,
+    address changes, company filings, ownership updates, and demographic information.
+
+    Predicti continuously compares your portfolio with newly available public data.
+    When public data contains a relevant change for an entity in your portfolio, Predicti generates
+    a Life Event and delivers it immediately.
+
+    This ensures that you only receive events related to the customers and entities already included
+    in your portfolio.
+
+    </section>
+
+    ---
+
+    <section>
+
+    ## How Life Events Works
+
+    Life Events uses the combined data from your portfolio and public data sources to continuously detect
+    changes. To give a complete and always up-to-date picture, Life Events includes:
+
+    ### Real-Time Events
+
+    Delivered immediately when new information is registered in public data sources.
+
+    ### Historical Events
+
+    Provides insight into past activity, long-term patterns, and customer history.
+
+    ### Event Classifications
+
+    Each event falls into one of three classifications, reflecting how the event was generated:
+
+    * Fact: Verified changes based on confirmed data (e.g., property purchased, company closed).
+    * Model-based updates: Events generated from statistical or ML models that estimate or update a value
+    (e.g., updated income estimates or the likelihood of children in the household).
+    * Future predictions: Events that represent predicted future outcomes (e.g., that it is likely that
+    a customer will move to a new address within the next half year).
+
+    </section>
+
+    ---
+
+    <section>
+
+    ## Future-Dated Events
+
+    Some fact-driven event types can be detected before the effective date.
+    A common example is a property purchase where the takeover date lies in the future.
+    Even though the customer has not yet taken possession, the transaction may already be registered in public data.
+
+    Life events deliver life events as soon as they become available, allowing you to:
+
+    * reach out to the customer before the change happens
+    * prepare onboarding steps in advance
+    * trigger workflows ahead of time
+    * understand upcoming shifts in the customer’s situation
+
+    Future-dated events include:
+
+    * eventDate – the effective future date
+    * eventAvailableDate – when Predicti first detected the event
+
+    </section>
+
+    ---
+
+    <section>
+
+    ## Typical Use Cases
+
+    Life Events can support many operational, advisory, and commercial workflows:
+
+    ### Onboarding & Activation
+
+    Trigger relevant actions when customers move, buy a property, or create a company.
+    Future-dated events enable engagement even before the change occurs.
+
+    ### Customer Retention
+
+    Identify significant life changes early and follow up proactively.
+
+    ### Cross-sell & Upsell
+
+    Detect new financial needs when customers enter new life phases or acquire assets.
+
+    ### Risk Monitoring
+
+    Use ownership changes, financial filings, or property activity to support risk assessments.
+
+    ### Customer Timeline
+
+    Build a chronological view of personal, financial, and property-related activity across your portfolio.
+
+    </section>
+
+    ---
+
+    <section>
+
+    ## Event Model & Structure
+
+    All events share the same structure, regardless of whether they relate to a person, company, or property.
+    The only difference is the entity identifier (personId, companyId, or propertyId).
+
+    Below is the shared structure in API order:
+
+    ### \<entity\>Id
+
+    Unique ID identifying the entity the event relates to.
+
+    ### eventDate
+
+    Date and time when the event occurred or will take effect.
+
+    ### eventId
+
+    Unique identifier for the event.
+
+    ### eventType
+
+    Type of event, such as address change, ownership transfer, financial update, or value change.
+
+    ### eventValues
+
+    Object containing the values affected by the event.
+
+    ### newValues
+
+    The new values introduced as part of the event.
+
+    ### oldValues
+
+    The previous values replaced by the event.
+
+    ### eventDateAccuracy
+
+    Indicates the precision of the event date (exact or approximate).
+
+    ### eventAvailableDate
+
+    Date when the event became available in Predicti.
+
+    ### isExperimental
+
+    Indicates whether the event is experimental. Experimental events may evolve over time as logic or data sources improve.
+
+    ---
+
+  </section>
+</div>
